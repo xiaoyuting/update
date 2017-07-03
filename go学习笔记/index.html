@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>GOPATH下需要建立3个目录</h1>
+<P>bin：存放编译后生成的可执行文件</P>
+<P>pkg：存放编译后生成的包文件</P>
+<P>src：存放项目源码</P>
+<hr>
+<p>GO程序是通过package来组织的,<br>
+   只有package名称为main的包可以包含main函数<br>
+    一个可执行程序有且仅有一个main包
+</p>
+<ol>
+    <li>通过import关键字来导入其他非main包</li>
+    <li>通过const关键字来进行常量定义</li>
+    <li>通过在函数体外使用var关键字来进行全局变量的声明与赋值</li>
+    <li>通过type关键字进行结构（struct）或接口（interface）的声明</li>
+    <li>通过func关键字来进行函数的声明</li>
+</ol>
+<pre>
+    import "fmt" === import(
+    import "os"  ===  "fmt"
+    import "io"  ===   "os"
+                       "io" )
+</pre>
+<hr>
+<p>别名使用</p>
+<pre>
+    import(
+    io "fmt"  ----->io.Println("weqewqewqewqewqew");
+    )
+</pre>
+<pre>
+    约定，函数名首字母小写即为private
+    func getField(i int ,str nsstring){
+    }
+    函数名首字母大写即为public
+    func Psintf(){
+    }
+</pre>
+<pre>
+    <ol>
+
+        <li><p>
+            长量定义
+            const{
+            pi = 3.14
+            const1 = '1'
+            const2 = 2
+            const3 = 3
+            }
+        </p></li>
+        <li><p>
+            全局变量的声明与赋值
+            var (
+            name = "gopher"
+            name1 = "1"
+            name2 = 2
+            name3 = 3
+            )
+        </p></li>
+        <li><p>
+          一般类型生命线
+            type(
+            nametype int
+            type1  float32
+            type2  string
+            type3  byte
+            )
+        </p></li>
+    </ol>
+</pre>
+<pre>
+    布尔类型：bool
+    长度：1字节
+    取值范围：true ，false
+
+    整形：int／uint
+    32／64位
+
+    8位整形：int8／uint8
+    长度：1字节
+    取值范围：-128～127／0～255
+
+    字节型：bype（uint8别名）
+
+    浮点型：float32／float64
+    长度：4／8字节
+    小数位：精确到7／15小数位
+
+    复数：complex64／complex128
+    长度：8／16字节
+
+    足够保存指针的32位或64位整数型：uintptr
+    其他值类型：array ，struct ， string
+    引用类型：slice，map，chan
+    接口类型：interface
+    函数类型：func
+</pre>
+<pre>
+    类型零值并不等于空；
+    数据为0；
+    bool为false
+    string为空字符串
+</pre>
+<pre>
+    变量的声明与赋值
+    变量声明格式：var <声明类型><变量类型>
+    变量的赋值格式： <变量名称> =<表达式>
+    声明的同时赋值：var <变量名称>[变量类型 ]=<表达式>
+    var a int
+    a = 123
+    var b  int = 123
+    var c  = 123
+    d := 123
+
+    全局变量的声明可使用 var() 的方式进行简写
+    全局变量的声明不可以省略 var，但可使用并行方式
+    所有变量都可以使用类型推断
+    局部变量不可以使用 var() 的方式简写，只能使用并行方式
+ var (
+    aaa = "hello"
+    sss,bbb = 1,2
+
+    )
+    var a,b,c,d   int
+    a,b,c,d = 1,2,3,4
+
+    var e,f,g,h int  = 5,6,7,8
+    var i,j,k,l = 1,2,3,4
+    i,m,n,o  := 12,13,14,15
+</pre>
+<pre>
+    变量类型转换
+    Go中不存在隐式转换，所有类型转换必须显式声明
+    转换只能发生在两种相互兼容的类型之间
+    <ValueA> [:] = <TypeOfValueA>(<ValueB>)
+        var s float32 = 1.1
+        b := int(a)
+</pre>
+<pre>
+    常量的值在编译时就已经确定
+    常量的定义格式与变量基本相同
+    等号右侧必须是常量或者常量表达式
+    常量表达式中的函数必须是内置函数
+
+    定义单个常量
+    const a int =1
+    const b = 'a'
+    const(
+    text = "123"
+    length = len(text)
+    num  = b *20
+
+    )
+
+    同时定义多个变量
+ const i,j,k = 1,"2",'3'
+    const(
+    text2,length2,num2 = "456",len(text2),k*10
+    )
+</pre>
+<pre>
+    在定义常量组时，如果不提供初始值，则表示将使用上行的表达式
+    使用相同的表达式不代表具有相同的值
+    iota是常量的计数器，从0开始，组中每定义1个常量自动递增1
+     通过初始化规则与iota可以达到枚举的效果
+     每遇到一个const关键字，iota就会重置为0
+
+</pre>
+
+<pre>
+    指针
+
+        Go虽然保留了指针，但与其它编程语言不同的是，在Go当中不
+支持指针运算以及”->”运算符，而直接采用”.”选择符来操作指针
+目标对象的成员
+
+操作符”&”取变量地址，使用”*”通过指针间接访问目标对象
+默认值为 nil 而非 NULL
+
+
+递增递减语句
+
+        在Go当中，++ 与 -- 是作为语句而并不是作为表达式
+
+</pre>
+<pre>
+    判断语句if
+
+条件表达式没有括号
+支持一个初始化表达式（可以是并行方式）
+左大括号必须和条件语句或else在同一行
+支持单行模式
+初始化语句中的变量为block级别，同时隐藏外部同名变量
+1.0.3版本中的编译器BUG
+</pre>
+</body>
+</html>
